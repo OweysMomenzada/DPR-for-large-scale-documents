@@ -12,5 +12,7 @@ $ pip install -r requirements.txt
 ```
 
 
-
 ### Run Demo App:
+```
+$ streamlit run demo.py
+```
