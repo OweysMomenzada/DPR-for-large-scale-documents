@@ -5,13 +5,8 @@ import heapq
 from tqdm import tqdm
 import pandas as pd
 
-#CTX_TOKENIZER = "facebook/dpr-ctx_encoder-single-nq-base"
-#QUE_TOKENIZER = "facebook/dpr-question_encoder-single-nq-base"
-#CTX_ENCODER_ARCHITECTURE = "./IBM_DPR_ContextEncoder_EN"
-#QUE_ENCODER_ARCHITECTURE = "./IBM_DPR_QuestionEncoder_EN"
-
-CTX_TOKENIZER = "facebook/dpr-ctx_encoder-multiset-base"
-QUE_TOKENIZER = "facebook/dpr-question_encoder-multiset-base"
+CTX_TOKENIZER = "DPR/DPR_Context/Tokens"
+QUE_TOKENIZER = "DPR/DPR_Question/Tokens"
 CTX_ENCODER_ARCHITECTURE = "./DPR/DPR_Context"
 QUE_ENCODER_ARCHITECTURE = "./DPR/DPR_Question"
 
