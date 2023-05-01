@@ -5,12 +5,21 @@ The methods being used is based on Dense Passage Retrieval for Multicontext. PDF
 
 
 ### Install Requirements
-Install requirements and run: 
+Install packages by running:
 
 ```
 $ pip install -r requirements.txt
 ```
 
+Now install either the multi-DPR:
+```
+$ python train.py -modeltype multi
+```
+
+or for the single-DPR:
+```
+$ python train.py -modeltype single
+```
 
 ### Run Demo App:
 ```
