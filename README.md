@@ -11,12 +11,12 @@ Install packages by running:
 $ pip install -r requirements.txt
 ```
 
-Now install either the multi-DPR:
+Now either get the multi-DPR model:
 ```
 $ python train.py -modeltype multi
 ```
 
-or for the single-DPR:
+or for the single-DPR model:
 ```
 $ python train.py -modeltype single
 ```
