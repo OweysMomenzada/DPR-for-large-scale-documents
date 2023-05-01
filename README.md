@@ -25,3 +25,17 @@ $ python train.py -modeltype single
 ```
 $ streamlit run demo.py
 ```
+
+### Run the Demo App on Docker!
+#### Before building the image please get the multi-DPR or single-DPR model.
+
+Build image:
+```
+  $ docker build -t demo-dpr-image .
+```
+Run it:
+```
+  $ docker run -p 8501:8501 demo-dpr-image
+````
+
+It is then exposed on `http://localhost:8501`
