@@ -1,6 +1,7 @@
 import streamlit as st
 from Retriever import contentretriever as cr
 from DPR import DPR
+import os
 
 st.set_page_config(page_title='IBM Content retriever', 
                    page_icon='./img/5a3a21e61dd0d6.02978359151375920612213253.png',
@@ -17,32 +18,35 @@ st.write("Demo for relevant passage retrievel for large scale documents such as 
 with st.spinner(text="We are loading the model..."):
     DPR = DPR.IBMDPR() 
 
-url_col, pdfupload_col = st.columns([1,1])
+_, pdfupload_col, _ = st.columns([1,1,1])
 content_display = ""
 
 with pdfupload_col:
-    uploaded_file = st.file_uploader('Input your .pdf file you want to retrieve.', 
+    uploaded_file = st.file_uploader('Input your Pdf file you want to upload.', 
                                      type="pdf")
     
-    if uploaded_file:
-        content_display = cr.pdf_to_text(uploaded_file)
-
-with url_col:
-    if uploaded_file:
-        enable = True
-    else:
-        enable = False
-
-    url = st.text_input('Input the URL you want to retrieve.', 
-                        'https://en.wikipedia.org/wiki/Sustainability_reporting', 
-                        disabled=enable)
+    if uploaded_file is not None:
+        filename = uploaded_file.name
+        file_path = os.path.join("pdf_documents", filename)
+        
+        with open(file_path, 'wb') as f:
+            f.write(uploaded_file.getbuffer())
+        
+        st.success("File uploaded successfully!")
     
-    if url and not uploaded_file:
-        content_display = cr.retrieve_webcontent(url)
+    pdf_dir = "pdf_documents"
+    pdf_files = [f for f in os.listdir(pdf_dir) if f.endswith('.pdf')]
+    selected_file = st.selectbox("Select a PDF file", pdf_files)
+    selected_file_path = os.path.join(pdf_dir, selected_file)
+
+    content_display = cr.pdf_to_text(selected_file_path)
+
 
 _, num_col, _ = st.columns([1,1,1])
 _, que_col, _ = st.columns([1,1,1])
 _, run_b_col, _ = st.columns([1,1,1])
+
+
 
 with num_col:
     number = st.number_input('Insert the no. of relevant passages you want to retrieve.', step=1, min_value=3)
@@ -63,11 +67,12 @@ with run_b_col:
                                                               [question])
 
             else:
-                st.error("No content to retrieve. Make sure to input a valid URL or Document.")
+                st.error("No content to retrieve. Make sure to input a valid PDF-Document.")
 
 if relevant_passages:
     st.write("### Relevant passages:")
 
     st.write(relevant_passages)
 
+st.write("### Retrieved content:")
 st.write(content_display[:5000] + " ...")
